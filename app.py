@@ -14,7 +14,7 @@ layout = [
              sg.Input(key='altura', size=(7,1)),              
              sg.Button('OK', key='validar_altura', button_color='MediumAquamarine'),
              ],
-    [sg.Button('Calcular')],    
+    [sg.Button('Calcular', button_color='MediumAquamarine')],    
     [sg.Text('-------------------------- Relatório --------------------------',
             justification='center', size=(280))
             ],
@@ -59,13 +59,16 @@ while True:
             sg.popup_error("Digite apenas números")
             window['altura'].update('')
     if event == 'Calcular':
-        if (window['peso'] or window['altura'] != ''):
-            calculo_imc = calcular_imc(peso_formatado, altura_formatada)
-            categoria = categoria_imc(calculo_imc)
-            cor_categoria = definir_cor(categoria)
-            window['imc'].update(calculo_imc)
-            window['categoria'].update(categoria, text_color=cor_categoria)
-            window['peso'].update('')
-            window['altura'].update('')
+        try:
+            if (window['peso'] or window['altura'] != ''):
+                calculo_imc = calcular_imc(peso_formatado, altura_formatada)
+                categoria = categoria_imc(calculo_imc)
+                cor_categoria = definir_cor(categoria)
+                window['imc'].update(calculo_imc)
+                window['categoria'].update(categoria, text_color=cor_categoria)
+                window['peso'].update('')
+                window['altura'].update('')
+        except:
+            sg.popup_error("Informe peso e altura")
        
 window.close()
